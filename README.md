@@ -74,7 +74,7 @@ Para empezar con la base de datos vacía: detener el servidor y correr `npm run 
 - Trazabilidad de las reglas de negocio y los casos de uso: [`docs/requerimientos.md`](docs/requerimientos.md).
 - Demo en línea: https://barberos.barberos-uaq.workers.dev
 - Diagrama: [`docs/arquitectura.png`](docs/arquitectura.png) (también en SVG).
-- Video: [LINK DEL VIDEO]
+- Video: https://drive.google.com/file/d/1uYuffE2KLzN1gKvfZIi-VKszJhS33b94/view?usp=sharing
 
 ## Imágenes
 
