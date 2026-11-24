@@ -4,7 +4,7 @@ Sistema de gestión para barberías, adaptable al giro de cada negocio (colores,
 
 ## Equipo
 
-- Pozas Gomez Fernando — 333414 — Backend y arquitectura
+- Pozas Gomez Fernando — 333414 — Backend y arquitecturaa
 - Juan Pablo Bolaños Rivera — 326570 — Frontend y pruebas
 - Julio Alberto Tecuapacho Velázquez — 333364 — Documentación y ADRs 🗣️✊
 
