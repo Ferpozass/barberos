@@ -212,12 +212,17 @@ export function montarBarbero(raiz) {
           <div class="fila"><span>Pago</span><span>${venta.metodo}</span></div>
           <div class="fila"><span>Atendió</span><span>${esc(barbero?.nombre)}</span></div>
           <hr>
-          <div class="centro" style="font-size:11px">Folio ${venta.id.slice(0, 8).toUpperCase()}<br>${sinInternet() ? "Guardada en el celular · se sube al volver la señal" : "Enviando al servidor…"}</div>
+          <div class="centro" style="font-size:11px">Folio ${venta.id.slice(0, 8).toUpperCase()}<br>Gracias por tu visita<span class="solo-pantalla"><br>${sinInternet() ? "Guardada en el celular · se sube al volver la señal" : "Enviando al servidor…"}</span></div>
         </div>
       </div>
-      <div class="pie"><button class="boton ancho" data-cerrar>Listo</button></div>`;
+      <div class="pie pie-ticket">
+        <button class="boton rojo" data-imprimir>Imprimir ticket</button>
+        <button class="boton" data-cerrar>Listo</button>
+      </div>`;
     dlg.onclick = (e) => {
       const b = e.target.closest("button");
+      // Abre la impresión del equipo: impresora normal, térmica (también Bluetooth vinculada al celular) o PDF.
+      if (b && "imprimir" in b.dataset) return window.print();
       if (e.target === dlg || (b && "cerrar" in b.dataset)) dlg.close();
     };
     if (!dlg.open) dlg.showModal();
