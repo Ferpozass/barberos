@@ -4,8 +4,8 @@ Sistema de gestión para barberías, adaptable al giro de cada negocio (colores,
 
 ## Equipo
 
-- Pozas Gomez Fernando — 333414 — Backend y arquitecturaa
-- Juan Pablo Bolaños Rivera — 326570 — Frontend y pruebas
+- Pozas Gomez Fernando — 333414 — Backend y arquitectura 👌
+- Juan Pablo Bolaños Rivera — 326570 — Frontend y pruebas 🫡
 - Julio Alberto Tecuapacho Velázquez — 333364 — Documentación y ADRs 🗣️✊
 
 Materia: Frameworks y Arquitectura de Software (SOF18), UAQ · Profesor: Zabaleta Duran Adrián Rene
