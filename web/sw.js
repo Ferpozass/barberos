@@ -2,10 +2,10 @@
 // - Pantallas, estilos, scripts e imágenes: primero la red (para tener siempre la versión nueva) y, si no hay
 //   red, la copia guardada.
 // - La API (/api/...) y la pasarela NUNCA salen de la copia: sin red fallan y la app usa su propia cola local.
-const CACHE = "barberos-v1";
+const CACHE = "barberos-v2";
 const BASE = ["/", "/index.html", "/estilos.css", "/js/app.js", "/js/comun.js", "/js/inicio.js", "/js/cliente.js",
   "/js/tienda.js", "/js/barbero.js", "/js/admin.js", "/js/local.js", "/js/entrar.js", "/js/cuenta.js",
-  "/js/productos.js", "/js/apariencia.js"];
+  "/js/productos.js", "/js/apariencia.js", "/js/ticket.js"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(BASE)).then(() => self.skipWaiting()));

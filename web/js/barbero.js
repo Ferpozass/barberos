@@ -1,4 +1,5 @@
 import { api, avisar, almacen, catalogo, dinero, diaLocal, esc, hora, iniciales, pildora, sesion } from "./comun.js";
+import { compartirTicket, lineasDelTicket, ticketPng } from "./ticket.js";
 
 // Vista del barbero: su agenda del día y el cobro en el local, con o sin internet.
 // Cada venta nace con un id generado AQUÍ (crypto.randomUUID) y se guarda en una cola local;
@@ -196,33 +197,38 @@ export function montarBarbero(raiz) {
     dlg.showModal();
   }
 
+  // Ticket como imagen de 384 px para térmica de 55-58 mm (igual que en KYN): lo que se ve es lo que se imprime.
   function mostrarTicket(venta) {
     const dlg = document.getElementById("dialogo");
-    const barbero = st.cat.barberos.find((b) => b.id === venta.barberoId);
-    const total = venta.renglones.reduce((s, r) => s + r.cantidad * r.precioUnitario, 0);
+    const barbero = st.cat.barberos.find((b) => b.id === venta.barberoId)?.nombre;
+    const nombre = `ticket-${venta.id.slice(0, 8).toUpperCase()}.png`;
+    let png = null;
     dlg.innerHTML = `
       <div class="cab"><h2>Ticket</h2><button class="cerrar" data-cerrar aria-label="Cerrar">×</button></div>
       <div class="cuerpo">
-        <div class="ticket">
-          <div class="centro"><b>BARBERÍA · BarberOS</b><br>${new Date(venta.creadaEn).toLocaleString("es-MX")}</div>
-          <hr>
-          ${venta.renglones.map((r) => `<div class="fila"><span>${r.cantidad} × ${esc(r.concepto)}</span><span>${dinero(r.cantidad * r.precioUnitario)}</span></div>`).join("") || `<div>Servicio pagado en línea</div>`}
-          <hr>
-          <div class="fila"><b>TOTAL</b><b>${dinero(total)}</b></div>
-          <div class="fila"><span>Pago</span><span>${venta.metodo}</span></div>
-          <div class="fila"><span>Atendió</span><span>${esc(barbero?.nombre)}</span></div>
-          <hr>
-          <div class="centro" style="font-size:11px">Folio ${venta.id.slice(0, 8).toUpperCase()}<br>Gracias por tu visita<span class="solo-pantalla"><br>${sinInternet() ? "Guardada en el celular · se sube al volver la señal" : "Enviando al servidor…"}</span></div>
-        </div>
+        <div class="ticket-imagen"><p class="nota">Generando ticket…</p></div>
+        <p class="nota" style="text-align:center">${sinInternet() ? "Guardada en el celular · se sube al volver la señal" : "Enviando al servidor…"}</p>
       </div>
       <div class="pie pie-ticket">
-        <button class="boton rojo" data-imprimir>Imprimir ticket</button>
+        <button class="boton rojo" data-imprimir disabled>Imprimir ticket</button>
         <button class="boton" data-cerrar>Listo</button>
       </div>`;
-    dlg.onclick = (e) => {
+    ticketPng(lineasDelTicket({ venta, barbero, dinero }))
+      .then((b) => {
+        png = b;
+        const url = URL.createObjectURL(b);
+        dlg.querySelector(".ticket-imagen").innerHTML = `<img src="${url}" alt="Ticket ${esc(nombre)}">`;
+        dlg.querySelector("[data-imprimir]").disabled = false;
+      })
+      .catch(() => (dlg.querySelector(".ticket-imagen").innerHTML = `<p class="nota">No se pudo generar el ticket.</p>`));
+    dlg.onclick = async (e) => {
       const b = e.target.closest("button");
-      // Abre la impresión del equipo: impresora normal, térmica (también Bluetooth vinculada al celular) o PDF.
-      if (b && "imprimir" in b.dataset) return window.print();
+      if (b && "imprimir" in b.dataset && png) {
+        // Abre "compartir" del celular para mandarlo a la app de la impresora; si no se puede, lo descarga.
+        const r = await compartirTicket(png, nombre);
+        if (r === "descargado") avisar("Ticket descargado: ábrelo con la app de tu impresora");
+        return;
+      }
       if (e.target === dlg || (b && "cerrar" in b.dataset)) dlg.close();
     };
     if (!dlg.open) dlg.showModal();
