@@ -84,6 +84,18 @@ document.querySelector(".pie").addEventListener("click", (e) => {
 });
 
 cargarPaleta(api);
+// Al abrir, se le pregunta al servidor quién eres: si el admin te cambió el rol, las pestañas se actualizan solas.
+const guardada = sesion.actual();
+if (guardada?.token) {
+  api("/api/cuentas/yo")
+    .then(({ usuario }) => {
+      if (usuario && JSON.stringify(usuario) !== JSON.stringify(guardada.usuario)) {
+        sesion.guardar({ ...guardada, usuario });
+        mostrar();
+      }
+    })
+    .catch(() => {});
+}
 // Copia de la app en el celular (web/sw.js): así abre aunque no haya internet en el local (escenario E1).
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});
 window.addEventListener("hashchange", mostrar);
