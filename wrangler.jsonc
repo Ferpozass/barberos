@@ -1,0 +1,15 @@
+// Configuración de Cloudflare Workers (ADR-009). Subir: npm run deploy
+{
+  "name": "barberos",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  // Las pantallas (web/) se sirven como archivos estáticos; lo que no es archivo llega al Worker.
+  "assets": { "directory": "./web", "binding": "ASSETS" },
+  // Conciliación de pagos cada minuto (en la laptop es cada 30 s).
+  "triggers": { "crons": ["* * * * *"] },
+  "observability": { "enabled": true },
+  // "Acceder con Google" (ADR-011). Es el ID PÚBLICO de la app en Google Cloud; no es secreto.
+  "vars": { "URL_BASE": "https://barberos.barberos-uaq.workers.dev", "GOOGLE_CLIENT_ID": "105607116091-p92saf4ep7j6p5kk7ubaqfndoufbspka.apps.googleusercontent.com" }
+  // DATABASE_URL NO va aquí: es secreto → npx wrangler secret put DATABASE_URL
+}

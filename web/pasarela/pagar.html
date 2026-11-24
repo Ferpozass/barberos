@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pasarela de pago simulada</title>
+  <style>
+    :root { --fondo: #eef1f5; --tarjeta: #fff; --texto: #1d2533; --gris: #6b7588; --linea: #dfe4ec; --acento: #2e5bff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--fondo); color: var(--texto); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; padding: 16px; }
+    .caja { width: min(420px, 100%); background: var(--tarjeta); border-radius: 16px; box-shadow: 0 20px 50px -20px rgba(20, 30, 60, .35); overflow: hidden; }
+    .cab { padding: 18px 22px; border-bottom: 1px solid var(--linea); display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .cab .logo { width: 28px; height: 28px; border-radius: 8px; background: var(--acento); display: grid; place-items: center; color: #fff; font-size: 14px; }
+    .cab small { margin-left: auto; font-weight: 600; color: var(--gris); border: 1px dashed var(--gris); border-radius: 6px; padding: 1px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+    .cuerpo { padding: 22px; }
+    .concepto { color: var(--gris); font-size: 14px; }
+    .monto { font-size: 40px; font-weight: 800; letter-spacing: -.03em; margin: 2px 0 18px; }
+    .tarjeta-falsa { border: 1px solid var(--linea); border-radius: 10px; padding: 12px 14px; color: var(--gris); font-family: ui-monospace, monospace; margin-bottom: 18px; }
+    button { width: 100%; border: 0; border-radius: 10px; padding: 14px; font: 600 16px system-ui, sans-serif; cursor: pointer; }
+    .pagar { background: var(--acento); color: #fff; }
+    .pagar:hover { filter: brightness(1.08); }
+    .secundario { background: none; color: var(--gris); font-size: 13px; margin-top: 10px; text-decoration: underline; }
+    .nota { font-size: 12px; color: var(--gris); margin-top: 14px; }
+    .ok { text-align: center; padding: 30px 22px; }
+    .ok .check { width: 64px; height: 64px; border-radius: 50%; background: #e3f5ea; color: #1f8a4c; display: grid; place-items: center; margin: 0 auto 12px; font-size: 30px; }
+  </style>
+</head>
+<body>
+  <div class="caja" id="caja">
+    <div class="cab"><span class="logo">$</span> Pasarela de pagos <small>simulada</small></div>
+    <div class="cuerpo" id="cuerpo">Cargando…</div>
+  </div>
+  <script>
+    const id = new URLSearchParams(location.search).get("cobro");
+    const cuerpo = document.getElementById("cuerpo");
+    const dinero = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(n);
+
+    async function cargar() {
+      const r = await fetch(`/pasarela/cobros/${encodeURIComponent(id)}`);
+      if (!r.ok) { cuerpo.textContent = "Ese cobro no existe."; return; }
+      const c = await r.json();
+      if (c.estado === "aprobado") return listo(true);
+      cuerpo.innerHTML = `
+        <div class="concepto">${c.descripcion.replace(/</g, "&lt;")}</div>
+        <div class="monto">${dinero(c.monto)}</div>
+        <div class="tarjeta-falsa">•••• •••• •••• 4242 &nbsp; 12/29</div>
+        <button class="pagar" id="pagar">Pagar ${dinero(c.monto)}</button>
+        <button class="secundario" id="sin-aviso">Pagar, pero simular que el webhook se pierde</button>
+        <p class="nota">Es una pasarela de prueba: no se cobra nada. En producción aquí va la de Mercado Pago, detrás del mismo puerto PasarelaDePago.</p>`;
+      document.getElementById("pagar").onclick = () => aprobar(true);
+      document.getElementById("sin-aviso").onclick = () => aprobar(false);
+    }
+
+    async function aprobar(webhook) {
+      cuerpo.innerHTML = "Procesando pago…";
+      await fetch(`/pasarela/cobros/${encodeURIComponent(id)}/aprobar`, {
+        method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ webhook }),
+      });
+      listo(webhook);
+    }
+
+    function listo(webhook) {
+      document.getElementById("caja").innerHTML = `
+        <div class="ok"><div class="check">✓</div><h2 style="margin:0 0 6px">Pago aprobado</h2>
+        <p style="color:var(--gris)">${webhook
+          ? "Ya avisamos a la barbería. Puedes cerrar esta pestaña."
+          : "El aviso a la barbería se \"perdió\". La conciliación lo encontrará en su siguiente vuelta."}</p>
+        <button class="pagar" onclick="window.close()">Cerrar</button></div>`;
+    }
+    cargar();
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 900" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#b3412e"/>
+    </marker>
+  </defs>
+  <rect width="1320" height="900" fill="#ffffff"/>
+
+  <!-- anillos -->
+  <circle cx="450" cy="450" r="440" fill="#dbe7f8" stroke="#2f62c9" stroke-width="2.5"/>
+  <circle cx="450" cy="450" r="340" fill="#dcf4e3" stroke="#1f9a4c" stroke-width="2.5"/>
+  <circle cx="450" cy="450" r="248" fill="#fbf0c9" stroke="#d98a12" stroke-width="2.5"/>
+  <circle cx="450" cy="450" r="112" fill="#fadde0" stroke="#d63447" stroke-width="2.5"/>
+
+  <!-- Frameworks & Drivers (arriba) -->
+  <text x="450" y="62" text-anchor="middle" font-size="19" font-weight="700" fill="#1c1b19">Frameworks &amp; Drivers</text>
+  <text x="450" y="84" text-anchor="middle" font-size="12.5" fill="#1c1b19">http/servidor.ts · http/rutas.ts · worker.ts (Cloudflare) · web/</text>
+  <text x="450" y="102" text-anchor="middle" font-size="12.5" fill="#1c1b19">config/contenedor.ts (raíz de composición) · db/conexion.ts</text>
+  <!-- Frameworks & Drivers (abajo) -->
+  <text x="450" y="806" text-anchor="middle" font-size="11" font-weight="700" fill="#1c1b19">SqlRepositorioCitas · SqlRepositorioPagos · SqlRepositorioPedidos</text>
+  <text x="450" y="823" text-anchor="middle" font-size="11" font-weight="700" fill="#1c1b19">SqlRepositorioVentas · SqlRepositorioProductos · SqlRepositorioUsuarios</text>
+  <text x="450" y="840" text-anchor="middle" font-size="11" fill="#1c1b19"><tspan font-weight="700">SqlRepositorioCortes</tspan> · PasarelaMercadoPago · PasarelaSimulada</text>
+  <text x="450" y="857" text-anchor="middle" font-size="11" fill="#1c1b19">NotificadorBuzon · VerificadorGoogleTokeninfo · SQLite · Supabase</text>
+
+  <!-- Interface Adapters -->
+  <text x="450" y="156" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1b19">Interface Adapters</text>
+  <text x="450" y="176" text-anchor="middle" font-size="10.5" fill="#1c1b19">ControladorAgenda · ControladorPagos · ControladorCaja · ControladorTienda</text>
+  <text x="450" y="193" text-anchor="middle" font-size="10.5" fill="#1c1b19">ControladorCuentas · ControladorLocal · Peticion/Respuesta · presentadores.ts</text>
+  <text x="450" y="718" text-anchor="middle" font-size="12.5" fill="#1c1b19">tarea-conciliacion.ts (ConciliarPagos y LiberarPedidosVencidos)</text>
+  <text x="450" y="736" text-anchor="middle" font-size="12.5" fill="#1c1b19">errores: ErrorDeDominio → 409 · NoEncontrado → 404</text>
+
+  <!-- Use Cases -->
+  <text x="450" y="268" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1b19">Use Cases</text>
+  <text x="450" y="289" text-anchor="middle" font-size="12.5" fill="#1c1b19">AgendarCita · ConsultarDisponibilidad · ReagendarCita</text>
+  <text x="450" y="307" text-anchor="middle" font-size="12.5" fill="#1c1b19">CancelarCita · ConfirmarPago · ConciliarPagos · HacerPedido</text>
+  <text x="450" y="325" text-anchor="middle" font-size="12.5" fill="#1c1b19">SincronizarVentas · CerrarCorteDeCaja · EntrarConGoogle</text>
+  <text x="450" y="574" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1c1b19">Puertos «interface»</text>
+  <text x="450" y="592" text-anchor="middle" font-size="12" fill="#1c1b19">RepositorioCitas · RepositorioPagos · RepositorioPedidos</text>
+  <text x="450" y="609" text-anchor="middle" font-size="12" fill="#1c1b19">RepositorioVentas · RepositorioProductos · RepositorioUsuarios</text>
+  <text x="450" y="626" text-anchor="middle" font-size="12" fill="#1c1b19">RepositorioCortes · PasarelaDePago · VerificadorGoogle</text>
+  <text x="450" y="643" text-anchor="middle" font-size="12" fill="#1c1b19">Notificador · Reloj</text>
+
+  <!-- Entities -->
+  <text x="450" y="418" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1b19">Entities</text>
+  <text x="450" y="440" text-anchor="middle" font-size="12.5" fill="#1c1b19">Cita · Pedido · Venta · Pago</text>
+  <text x="450" y="458" text-anchor="middle" font-size="12.5" fill="#1c1b19">CorteDeCaja · Barbero · Perfil</text>
+  <text x="450" y="476" text-anchor="middle" font-size="12.5" fill="#1c1b19">Servicio · Producto · Usuario</text>
+  <text x="450" y="496" text-anchor="middle" font-size="11" fill="#6b6a66">ErrorDeDominio · horario del local</text>
+
+  <!-- regla de dependencia -->
+  <line x1="14" y1="450" x2="334" y2="450" stroke="#b3412e" stroke-width="3" marker-end="url(#flecha)"/>
+  <line x1="886" y1="450" x2="566" y2="450" stroke="#b3412e" stroke-width="3" marker-end="url(#flecha)"/>
+
+  <!-- leyenda -->
+  <text x="935" y="80" font-size="24" font-weight="700" fill="#1c1b19">BarberOS · Clean Architecture</text>
+  <text x="935" y="106" font-size="14" fill="#5a5953">Carpetas de src/ y lo que vive en cada capa</text>
+
+  <rect x="935" y="135" width="22" height="22" fill="#fadde0" stroke="#d63447" stroke-width="1.5"/>
+  <text x="968" y="151" font-size="14" fill="#1c1b19"><tspan font-weight="700">domain/</tspan> entidades y reglas puras</text>
+  <rect x="935" y="172" width="22" height="22" fill="#fbf0c9" stroke="#d98a12" stroke-width="1.5"/>
+  <text x="968" y="188" font-size="14" fill="#1c1b19"><tspan font-weight="700">application/</tspan> casos de uso y puertos</text>
+  <rect x="935" y="209" width="22" height="22" fill="#dcf4e3" stroke="#1f9a4c" stroke-width="1.5"/>
+  <text x="968" y="225" font-size="14" fill="#1c1b19"><tspan font-weight="700">adapters/</tspan> controladores, presentadores, tareas</text>
+  <rect x="935" y="246" width="22" height="22" fill="#dbe7f8" stroke="#2f62c9" stroke-width="1.5"/>
+  <text x="968" y="262" font-size="14" fill="#1c1b19"><tspan font-weight="700">infrastructure/</tspan> BD, HTTP, pasarela, correo</text>
+
+  <line x1="935" y1="310" x2="990" y2="310" stroke="#b3412e" stroke-width="3" marker-end="url(#flecha)"/>
+  <text x="1002" y="315" font-size="15" font-weight="700" fill="#1c1b19">Regla de dependencia</text>
+  <text x="935" y="342" font-size="13.5" fill="#1c1b19">Todas las dependencias apuntan hacia adentro.</text>
+  <text x="935" y="362" font-size="13.5" fill="#1c1b19">El dominio no importa nada de afuera: ni SQLite,</text>
+  <text x="935" y="382" font-size="13.5" fill="#1c1b19">ni node:http, ni la pasarela.</text>
+  <text x="935" y="408" font-size="13.5" fill="#1c1b19">Los casos de uso definen los puertos y la capa</text>
+  <text x="935" y="428" font-size="13.5" fill="#1c1b19">externa los implementa (SqlRepositorioCitas</text>
+  <text x="935" y="448" font-size="13.5" fill="#1c1b19">implementa RepositorioCitas).</text>
+
+  <text x="935" y="530" font-size="15" font-weight="700" fill="#1c1b19">Componentes externos</text>
+  <text x="935" y="556" font-size="13.5" fill="#1c1b19">• Base de datos: SQLite en local, Supabase en la nube</text>
+  <text x="935" y="578" font-size="13.5" fill="#1c1b19">• Pasarela de pago: Mercado Pago (simulada en local)</text>
+  <text x="935" y="600" font-size="13.5" fill="#1c1b19">• Correo: buzón del sistema · Google (inicio de sesión)</text>
+  <text x="935" y="622" font-size="13.5" fill="#1c1b19">• UI: navegador del cliente, celular del barbero, panel</text>
+  <text x="935" y="644" font-size="13.5" fill="#1c1b19">  del administrador</text>
+
+  <text x="935" y="700" font-size="15" font-weight="700" fill="#1c1b19">Recorrido de AgendarCita</text>
+  <text x="935" y="726" font-size="13.5" fill="#1c1b19">web/js/cliente.js → POST /api/citas → http/rutas.ts</text>
+  <text x="935" y="748" font-size="13.5" fill="#1c1b19">→ ControladorAgenda.agendar → AgendarCita.ejecutar</text>
+  <text x="935" y="770" font-size="13.5" fill="#1c1b19">→ Cita.crear + chocaCon (dominio)</text>
+  <text x="935" y="792" font-size="13.5" fill="#1c1b19">→ RepositorioCitas.apartarSiLibre (puerto)</text>
+  <text x="935" y="814" font-size="13.5" fill="#1c1b19">→ SqlRepositorioCitas (SQL)</text>
+  <text x="935" y="836" font-size="13.5" fill="#1c1b19">→ PasarelaDePago.crearCobro → presentarCita</text>
+</svg>

@@ -1,0 +1,24 @@
+{
+  "name": "barberos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BarberOS — sistema de gestión para barbería con tienda (Clean Architecture)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/main.ts",
+    "test": "node --disable-warning=ExperimentalWarning --test \"tests/**/*.test.ts\"",
+    "reiniciar-bd": "node -e \"require('fs').rmSync('data',{recursive:true,force:true})\"",
+    "supabase:preparar": "node scripts/preparar-supabase.ts",
+    "deploy": "wrangler deploy",
+    "deploy:prueba": "wrangler deploy --dry-run --outdir .wrangler/prueba"
+  },
+  "dependencies": {
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "wrangler": "^4.163.0"
+  }
+}
